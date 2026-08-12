@@ -21,9 +21,22 @@ export const viewport: Viewport = {
   themeColor: '#ffffff',
 };
 
+function tilesOrigin(): string | null {
+  const url = process.env.NEXT_PUBLIC_TILES_URL;
+  if (!url) return null;
+  try {
+    return new URL(url).origin;
+  } catch {
+    return null;
+  }
+}
+
 export default function RootLayout({ children }: LayoutProps<'/'>) {
+  const preconnectOrigin = tilesOrigin();
+
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
+      <head>{preconnectOrigin && <link rel="preconnect" href={preconnectOrigin} />}</head>
       <body className="h-full bg-canvas font-sans text-ink">{children}</body>
     </html>
   );

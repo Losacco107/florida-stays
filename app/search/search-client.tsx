@@ -1,10 +1,18 @@
 'use client';
 
 import type { CSSProperties } from 'react';
-import { Info, LocateFixed, Search, SlidersHorizontal } from 'lucide-react';
+import dynamic from 'next/dynamic';
+import { Info, Search, SlidersHorizontal } from 'lucide-react';
 import { Chip } from '@/components/ui/chip';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const PLACEHOLDER_THEME_CHIPS = ['Family-Friendly', 'Outdoor Adventure', 'City Escapes'];
+
+// The map needs WebGL and browser globals it does not have on the server.
+const MapCanvas = dynamic(
+  () => import('@/components/map/map-canvas').then((mod) => mod.MapCanvas),
+  { ssr: false, loading: () => <Skeleton className="absolute inset-0 rounded-none" /> },
+);
 
 export function SearchClient() {
   return (
@@ -19,12 +27,7 @@ export function SearchClient() {
         Skip map, go to results
       </a>
 
-      <div
-        id="map-placeholder"
-        className="absolute inset-0 flex items-center justify-center bg-neutral-200"
-      >
-        <span className="text-ink-muted">Map</span>
-      </div>
+      <MapCanvas />
 
       <div className="absolute inset-x-4 top-[calc(env(safe-area-inset-top)+12px)] z-20 flex flex-col gap-2">
         <div className="flex min-h-11 items-center gap-3 rounded-pill bg-surface px-4 shadow-card">
@@ -51,14 +54,7 @@ export function SearchClient() {
         </div>
       </div>
 
-      <div className="absolute right-4 z-20 flex flex-col gap-3 bottom-[calc(var(--sheet-height)+16px)]">
-        <button
-          type="button"
-          aria-label="Center map on my location"
-          className="flex size-11 items-center justify-center rounded-pill bg-surface shadow-card"
-        >
-          <LocateFixed aria-hidden="true" className="size-5 text-ink" />
-        </button>
+      <div className="absolute right-4 z-20 bottom-[calc(var(--sheet-height)+72px)] md:bottom-[calc(var(--sheet-height)+176px)]">
         <button
           type="button"
           aria-label="Show legend"
