@@ -1,0 +1,257 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Florida Stays — marker system preview</title><style>
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;color:#0b0b0b;background:#f9f9f7}
+.wrap{max-width:1100px;margin:0 auto;padding:32px 20px 80px}
+h1{font-size:26px;margin:0 0 4px} .sub{color:#52514e;margin:0 0 28px}
+h2{font-size:18px;margin:40px 0 6px} .note{color:#52514e;font-size:13.5px;margin:0 0 16px;max-width:70ch}
+.panel{background:#fff;border:1px solid #e1e0d9;border-radius:14px;padding:20px}
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.fam h4{display:flex;align-items:center;gap:8px;font-size:13px;margin:0 0 8px;text-transform:uppercase;letter-spacing:.04em;color:#52514e}
+.fam h4 i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.fam h4 code{margin-left:auto;font-size:11px;color:#898781}
+.fam ul{list-style:none;margin:0;padding:0}
+.fam li{display:flex;align-items:center;gap:10px;padding:5px 0}
+.fam .lb{font-size:13.5px} .fam .ct{margin-left:auto;font-size:12px;color:#898781;font-variant-numeric:tabular-nums}
+.mk{display:block;filter:drop-shadow(0 1px 2px rgba(0,0,0,.20)) drop-shadow(0 2px 6px rgba(0,0,0,.14))}
+.map{position:relative;height:440px;border-radius:14px;overflow:hidden;border:1px solid #e1e0d9;
+background:#eae4d8}
+.map .land{position:absolute;inset:0;background:
+radial-gradient(60% 45% at 20% 30%,#dfe9d8 0%,transparent 60%),
+radial-gradient(50% 40% at 75% 65%,#dfe9d8 0%,transparent 60%),
+linear-gradient(160deg,#f2efe9 0%,#eae4d8 55%,#cfe0e6 100%)}
+.map .water{position:absolute;right:0;top:0;bottom:0;width:26%;background:#a9cdd8}
+.pt{position:absolute;transform:translate(-50%,-50%);cursor:pointer}
+.pt.sel{z-index:5}
+.row{display:flex;gap:20px;flex-wrap:wrap}
+.card{width:340px;background:#fff;border:1px solid #e1e0d9;border-radius:14px;padding:14px;display:flex;gap:12px;
+box-shadow:0 1px 2px rgba(0,0,0,.06),0 4px 12px rgba(0,0,0,.08)}
+.card .nm{font-weight:600;font-size:15px;line-height:20px}
+.card .co{color:#52514e;font-size:13px;margin:2px 0 8px}
+.bg{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;background:#f4f3f0;
+border-radius:999px;padding:3px 9px;margin:0 4px 4px 0}
+.bg i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.tip{width:260px;background:#fff;border-radius:10px;padding:12px 14px;box-shadow:0 6px 24px rgba(0,0,0,.16)}
+.tip .nm{font-weight:600;font-size:14px} .tip .co{color:#52514e;font-size:12.5px;margin:1px 0 8px}
+.muted{color:#898781;font-size:12.5px}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 14px}
+button{font:inherit;font-size:13px;padding:7px 14px;border-radius:999px;border:1px solid #d5d3cc;
+background:#fff;cursor:pointer}
+button[aria-pressed=true]{background:#0b0b0b;color:#fff;border-color:#0b0b0b}
+.cvd-d{filter:url(#deut)} .cvd-t{filter:url(#trit)} .cvd-g{filter:grayscale(1)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid #eceae4}
+th{color:#52514e;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+td.n{text-align:right;font-variant-numeric:tabular-nums}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<filter id="deut"><feColorMatrix type="matrix" values="0.625 0.375 0 0 0  0.7 0.3 0 0 0  0 0.3 0.7 0 0  0 0 0 1 0"/></filter>
+<filter id="trit"><feColorMatrix type="matrix" values="0.95 0.05 0 0 0  0 0.433 0.567 0 0  0 0.475 0.525 0 0  0 0 0 1 0"/></filter>
+</defs></svg>
+<div class="wrap">
+<h1>Marker system preview</h1>
+<p class="sub">Florida Stays · 155 hotels from the P0 tab · 13 themes, 4 colour families</p>
+
+<h2>The legend</h2>
+<p class="note">Colour identifies the family, the icon identifies the theme, the words live here.
+Counts are how many hotels have that theme as their <em>primary</em> — the first one listed in the
+spreadsheet, which is what drives the marker.</p>
+<div class="panel"><div class="grid"><div class="fam"><h4><i style="background:#2a78d6"></i>Urban & Business<code>#2a78d6</code></h4><ul><li><span class="ic"><svg class="mk" width="28" height="28" viewBox="0 0 28 28"><circle cx="14.0" cy="14.0" r="13.0" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/><g transform="translate(6.0,6.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12h4" />
+  <path d="M10 8h4" />
+  <path d="M14 21v-3a2 2 0 0 0-4 0v3" />
+  <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" />
+  <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></g></svg></span><span class="lb">City Escapes</span><span class="ct">13</span></li><li><span class="ic"><svg class="mk" width="28" height="28" viewBox="0 0 28 28"><circle cx="14.0" cy="14.0" r="13.0" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/><g transform="translate(6.0,6.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+  <rect width="20" height="14" x="2" y="6" rx="2" /></g></svg></span><span class="lb">Business Travel Stays</span><span class="ct">6</span></li><li><span class="ic"><svg class="mk" width="28" height="28" viewBox="0 0 28 28"><circle cx="14.0" cy="14.0" r="13.0" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/><g transform="translate(6.0,6.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" />
+  <path d="M7 14h.01" />
+  <path d="M17 14h.01" />
+  <rect width="18" height="8" x="3" y="10" rx="2" />
+  <path d="M5 18v2" />
+  <path d="M19 18v2" /></g></svg></span><span class="lb">Roadside Motels</span><span class="ct">0</span></li></ul></div><div class="fam"><h4><i style="background:#cc4e1b"></i>Family & Entertainment<code>#cc4e1b</code></h4><ul><li><span class="ic"><svg class="mk" width="28" height="28" viewBox="0 0 28 28"><circle cx="14.0" cy="14.0" r="13.0" fill="#cc4e1b" stroke="#ffffff" stroke-width="2"/><g transform="translate(6.0,6.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0" />
+  <circle cx="10" cy="8" r="5" />
+  <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" /></g></svg></span><span class="lb">Family-Friendly Stays</span><span class="ct">23</span></li><li><span class="ic"><svg class="mk" width="28" height="28" viewBox="0 0 28 28"><circle cx="14.0" cy="14.0" r="13.0" fill="#cc4e1b" stroke="#ffffff" stroke-width="2"/><g transform="translate(6.0,6.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="4" r="2" />
+  <circle cx="18" cy="8" r="2" />
+  <circle cx="20" cy="16" r="2" />
+  <path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z" /></g></svg></span><span class="lb">Pet-Friendly Stays</span><span class="ct">1</span></li><li><span class="ic"><svg class="mk" width="28" height="28" viewBox="0 0 28 28"><circle cx="14.0" cy="14.0" r="13.0" fill="#cc4e1b" stroke="#ffffff" stroke-width="2"/><g transform="translate(6.0,6.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+  <path d="M16 8h.01" />
+  <path d="M8 8h.01" />
+  <path d="M8 16h.01" />
+  <path d="M16 16h.01" />
+  <path d="M12 12h.01" /></g></svg></span><span class="lb">Casino & Entertainment Resorts</span><span class="ct">0</span></li><li><span class="ic"><svg class="mk" width="28" height="28" viewBox="0 0 28 28"><circle cx="14.0" cy="14.0" r="13.0" fill="#cc4e1b" stroke="#ffffff" stroke-width="2"/><g transform="translate(6.0,6.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20a1 1 0 0 1-1-1v-1a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1Z" />
+  <path d="M20 16a8 8 0 1 0-16 0" />
+  <path d="M12 4v4" />
+  <path d="M10 4h4" /></g></svg></span><span class="lb">All-Inclusive Resorts</span><span class="ct">1</span></li></ul></div><div class="fam"><h4><i style="background:#0c8459"></i>Outdoors & Nature<code>#0c8459</code></h4><ul><li><span class="ic"><svg class="mk" width="28" height="28" viewBox="0 0 28 28"><circle cx="14.0" cy="14.0" r="13.0" fill="#0c8459" stroke="#ffffff" stroke-width="2"/><g transform="translate(6.0,6.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z" /></g></svg></span><span class="lb">Outdoor Adventure Stays</span><span class="ct">23</span></li><li><span class="ic"><svg class="mk" width="28" height="28" viewBox="0 0 28 28"><circle cx="14.0" cy="14.0" r="13.0" fill="#0c8459" stroke="#ffffff" stroke-width="2"/><g transform="translate(6.0,6.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8" />
+  <path d="m4.93 10.93 1.41 1.41" />
+  <path d="M2 18h2" />
+  <path d="M20 18h2" />
+  <path d="m19.07 10.93-1.41 1.41" />
+  <path d="M22 22H2" />
+  <path d="m8 6 4-4 4 4" />
+  <path d="M16 18a4 4 0 0 0-8 0" /></g></svg></span><span class="lb">Natural Wonder Stays</span><span class="ct">13</span></li><li><span class="ic"><svg class="mk" width="28" height="28" viewBox="0 0 28 28"><circle cx="14.0" cy="14.0" r="13.0" fill="#0c8459" stroke="#ffffff" stroke-width="2"/><g transform="translate(6.0,6.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0Z" />
+  <path d="M7 16v6" />
+  <path d="M13 19v3" />
+  <path d="M12 19h8.3a1 1 0 0 0 .7-1.7L18 14h.3a1 1 0 0 0 .7-1.7L16 9h.2a1 1 0 0 0 .8-1.7L13 3l-1.4 1.5" /></g></svg></span><span class="lb">National Park Stays</span><span class="ct">2</span></li></ul></div><div class="fam"><h4><i style="background:#4a3aa7"></i>Romance & Indulgence<code>#4a3aa7</code></h4><ul><li><span class="ic"><svg class="mk" width="28" height="28" viewBox="0 0 28 28"><circle cx="14.0" cy="14.0" r="13.0" fill="#4a3aa7" stroke="#ffffff" stroke-width="2"/><g transform="translate(6.0,6.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></g></svg></span><span class="lb">Romantic Getaways</span><span class="ct">11</span></li><li><span class="ic"><svg class="mk" width="28" height="28" viewBox="0 0 28 28"><circle cx="14.0" cy="14.0" r="13.0" fill="#4a3aa7" stroke="#ffffff" stroke-width="2"/><g transform="translate(6.0,6.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8" />
+  <path d="M7 10h10" />
+  <path d="M12 15v7" />
+  <path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z" /></g></svg></span><span class="lb">Food & Wine Stays</span><span class="ct">9</span></li><li><span class="ic"><svg class="mk" width="28" height="28" viewBox="0 0 28 28"><circle cx="14.0" cy="14.0" r="13.0" fill="#4a3aa7" stroke="#ffffff" stroke-width="2"/><g transform="translate(6.0,6.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z" />
+  <path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97" /></g></svg></span><span class="lb">Onsen & Hot Spring Stays</span><span class="ct">0</span></li></ul></div><div class="fam"><h4><i style="background:#75736d"></i>Unclassified<code>#75736d</code></h4><ul><li><span class="ic"><svg class="mk" width="28" height="28" viewBox="0 0 28 28"><circle cx="14.0" cy="14.0" r="13.0" fill="#75736d" stroke="#ffffff" stroke-width="2"/><g transform="translate(6.0,6.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" />
+  <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
+  <path d="M12 4v6" />
+  <path d="M2 18h20" /></g></svg></span><span class="lb">Unclassified stay</span><span class="ct">53</span></li></ul></div></div></div>
+
+<h2>Density test — Orlando area</h2>
+<p class="note">All 42 hotels from Orange and Osceola counties at their real theme mix, at roughly the
+spacing you get at zoom 13. One marker is shown selected. Use the buttons to check that the map still
+reads when colour is unreliable — if it survives grayscale, the icons are doing their job.</p>
+<div class="tools">
+  <button aria-pressed="true" data-f="">Normal vision</button>
+  <button aria-pressed="false" data-f="cvd-d">Deuteranopia</button>
+  <button aria-pressed="false" data-f="cvd-t">Tritanopia</button>
+  <button aria-pressed="false" data-f="cvd-g">Grayscale</button>
+</div>
+<div class="map" id="map"><div class="land"></div><div class="water"></div><div class="pt" style="left:34.49728330531829%;top:20.671330609658163%" title="Magic Moment Resort & Kids Club , Dazzler Select by Wyndham"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#cc4e1b" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0" />
+  <circle cx="10" cy="8" r="5" />
+  <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" /></g></svg></div><div class="pt" style="left:63.28223362750713%;top:14.084648080073592%" title="Universal's Cabana Bay Beach Resort"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#cc4e1b" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0" />
+  <circle cx="10" cy="8" r="5" />
+  <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" /></g></svg></div><div class="pt" style="left:53.15761637898865%;top:38.71786902065719%" title="The Grove Resort & Water Park Orlando"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12h4" />
+  <path d="M10 8h4" />
+  <path d="M14 21v-3a2 2 0 0 0-4 0v3" />
+  <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" />
+  <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></g></svg></div><div class="pt" style="left:11.103905380174199%;top:50.6246015879113%" title="Days Inn by Wyndham Orlando Airport Florida Mall"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#75736d" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" />
+  <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
+  <path d="M12 4v6" />
+  <path d="M2 18h20" /></g></svg></div><div class="pt" style="left:9.29961794289467%;top:44.426237427640416%" title="Club Wyndham Bonnet Creek"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#0c8459" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8" />
+  <path d="m4.93 10.93 1.41 1.41" />
+  <path d="M2 18h2" />
+  <path d="M20 18h2" />
+  <path d="m19.07 10.93-1.41 1.41" />
+  <path d="M22 22H2" />
+  <path d="m8 6 4-4 4 4" />
+  <path d="M16 18a4 4 0 0 0-8 0" /></g></svg></div><div class="pt sel" style="left:12.147277274566466%;top:15.619893120884665%" title="Maingate Lakeside Resort"><svg class="mk" width="40" height="40" viewBox="0 0 40 40"><circle cx="20.0" cy="20.0" r="18.5" fill="#cc4e1b" stroke="#0b0b0b" stroke-width="3"/><g transform="translate(12.0,12.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0" />
+  <circle cx="10" cy="8" r="5" />
+  <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" /></g></svg></div><div class="pt" style="left:43.35768864454123%;top:77.4555784724512%" title="Arnold Palmer's Bay Hill Club & Lodge"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12h4" />
+  <path d="M10 8h4" />
+  <path d="M14 21v-3a2 2 0 0 0-4 0v3" />
+  <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" />
+  <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></g></svg></div><div class="pt" style="left:16.894572581168813%;top:26.752073026989223%" title="Holiday Inn Club Vacations at Orange Lake Resort"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#0c8459" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8" />
+  <path d="m4.93 10.93 1.41 1.41" />
+  <path d="M2 18h2" />
+  <path d="M20 18h2" />
+  <path d="m19.07 10.93-1.41 1.41" />
+  <path d="M22 22H2" />
+  <path d="m8 6 4-4 4 4" />
+  <path d="M16 18a4 4 0 0 0-8 0" /></g></svg></div><div class="pt" style="left:61.21412357169186%;top:87.60755116638848%" title="Orlando World Center Marriott"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#0c8459" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z" /></g></svg></div><div class="pt" style="left:91.91044929217696%;top:11.912945171891527%" title="Caribe Cove Resort in Kissimmee by Vacasa"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#75736d" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" />
+  <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
+  <path d="M12 4v6" />
+  <path d="M2 18h20" /></g></svg></div><div class="pt" style="left:81.5452243962838%;top:32.32718005186081%" title="Conrad Orlando at Evermore"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+  <rect width="20" height="14" x="2" y="6" rx="2" /></g></svg></div><div class="pt" style="left:18.6944473354545%;top:17.894547998582944%" title="Hilton Vacation Club Mystic Dunes Orlando"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#0c8459" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8" />
+  <path d="m4.93 10.93 1.41 1.41" />
+  <path d="M2 18h2" />
+  <path d="M20 18h2" />
+  <path d="m19.07 10.93-1.41 1.41" />
+  <path d="M22 22H2" />
+  <path d="m8 6 4-4 4 4" />
+  <path d="M16 18a4 4 0 0 0-8 0" /></g></svg></div><div class="pt" style="left:33.146400520970225%;top:76.55461416608264%" title="Hilton Orlando"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#cc4e1b" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0" />
+  <circle cx="10" cy="8" r="5" />
+  <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" /></g></svg></div><div class="pt" style="left:21.903921433306497%;top:56.854413747647165%" title="Hilton Orlando Buena Vista Palace - Disney Springs Area"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#cc4e1b" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0" />
+  <circle cx="10" cy="8" r="5" />
+  <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" /></g></svg></div><div class="pt" style="left:62.224385265504196%;top:39.28139358896142%" title="Villatel Orlando Resort"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#0c8459" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z" /></g></svg></div><div class="pt" style="left:54.20151298244109%;top:13.274273897759144%" title="Mi Casa Hotel"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12h4" />
+  <path d="M10 8h4" />
+  <path d="M14 21v-3a2 2 0 0 0-4 0v3" />
+  <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" />
+  <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></g></svg></div><div class="pt" style="left:11.244902957028474%;top:25.300531876823428%" title="Westgate Vacation Villas Resort"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#0c8459" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8" />
+  <path d="m4.93 10.93 1.41 1.41" />
+  <path d="M2 18h2" />
+  <path d="M20 18h2" />
+  <path d="m19.07 10.93-1.41 1.41" />
+  <path d="M22 22H2" />
+  <path d="m8 6 4-4 4 4" />
+  <path d="M16 18a4 4 0 0 0-8 0" /></g></svg></div><div class="pt" style="left:65.87519763999717%;top:43.91775367622984%" title="Gaylord Palms Resort & Convention Center"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+  <rect width="20" height="14" x="2" y="6" rx="2" /></g></svg></div><div class="pt" style="left:33.64495099315765%;top:57.18719653464165%" title="The Point Hotel & Suites"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#4a3aa7" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></g></svg></div><div class="pt" style="left:45.88022512062823%;top:33.18042773654932%" title="Residence Inn by Marriott Orlando at SeaWorld"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#0c8459" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z" /></g></svg></div><div class="pt" style="left:75.90539437397922%;top:66.71553243328398%" title="Bluegreen Vacations Fountains, an Ascend Collection Resort"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#4a3aa7" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8" />
+  <path d="M7 10h10" />
+  <path d="M12 15v7" />
+  <path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z" /></g></svg></div><div class="pt" style="left:27.480492943549454%;top:56.25159166172836%" title="Rosen Inn Lake Buena Vista"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#cc4e1b" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0" />
+  <circle cx="10" cy="8" r="5" />
+  <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" /></g></svg></div><div class="pt" style="left:52.21729233540773%;top:81.51154962816803%" title="Sonesta ES Suites Orlando – Lake Buena Vista"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#cc4e1b" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0" />
+  <circle cx="10" cy="8" r="5" />
+  <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" /></g></svg></div><div class="pt" style="left:70.19118547065115%;top:32.18677225077567%" title="MONUMENTAL MOVIELAND HOTEL"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#75736d" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" />
+  <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
+  <path d="M12 4v6" />
+  <path d="M2 18h20" /></g></svg></div><div class="pt" style="left:92.25538657934723%;top:17.91752537341682%" title="Wyndham Grand Orlando Resort Bonnet Creek"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#0c8459" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8" />
+  <path d="m4.93 10.93 1.41 1.41" />
+  <path d="M2 18h2" />
+  <path d="M20 18h2" />
+  <path d="m19.07 10.93-1.41 1.41" />
+  <path d="M22 22H2" />
+  <path d="m8 6 4-4 4 4" />
+  <path d="M16 18a4 4 0 0 0-8 0" /></g></svg></div><div class="pt" style="left:42.79480831709999%;top:71.59983808348095%" title="Parkway International Resort"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#4a3aa7" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></g></svg></div><div class="pt" style="left:19.37463905012442%;top:49.07290043996767%" title="Marriott's Cypress Harbour Villas"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#2a78d6" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12h4" />
+  <path d="M10 8h4" />
+  <path d="M14 21v-3a2 2 0 0 0-4 0v3" />
+  <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" />
+  <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></g></svg></div><div class="pt" style="left:9.450238620174513%;top:64.13013194888919%" title="HYATT REGENCY Orlando International Airport"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#cc4e1b" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0" />
+  <circle cx="10" cy="8" r="5" />
+  <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" /></g></svg></div><div class="pt" style="left:73.28223622672755%;top:56.13417898330025%" title="Wyndham Lake Buena Vista - Disney Springs Area"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#cc4e1b" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0" />
+  <circle cx="10" cy="8" r="5" />
+  <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" /></g></svg></div><div class="pt" style="left:67.18599223208201%;top:57.927069676821546%" title="Holiday Inn Resort Orlando Suites - Waterpark by IHG"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#0c8459" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z" /></g></svg></div><div class="pt" style="left:57.03077797685931%;top:46.32124782931869%" title="Westgate Lakes Resort & Spa"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#cc4e1b" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0" />
+  <circle cx="10" cy="8" r="5" />
+  <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" /></g></svg></div><div class="pt" style="left:79.91716468510364%;top:87.35321198906674%" title="Embassy Suites by Hilton Orlando Sunset Walk"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#0c8459" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z" /></g></svg></div><div class="pt" style="left:47.720653692928714%;top:63.788785259872654%" title="Drury Plaza Hotel Orlando - Disney Springs Area"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#cc4e1b" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0" />
+  <circle cx="10" cy="8" r="5" />
+  <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" /></g></svg></div><div class="pt" style="left:39.949646935310554%;top:64.16682813427181%" title="The Enclave Suites"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#cc4e1b" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0" />
+  <circle cx="10" cy="8" r="5" />
+  <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" /></g></svg></div><div class="pt" style="left:11.187988901155315%;top:72.53157103169174%" title="Lucaya Village Resort"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#75736d" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" />
+  <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
+  <path d="M12 4v6" />
+  <path d="M2 18h20" /></g></svg></div><div class="pt" style="left:78.09662572954524%;top:80.57469545467528%" title="Crystal Villa"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#75736d" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" />
+  <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
+  <path d="M12 4v6" />
+  <path d="M2 18h20" /></g></svg></div><div class="pt" style="left:30.50105367722295%;top:42.88490744578268%" title="Disney's ALL-STAR MOVIES Resort"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#75736d" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" />
+  <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
+  <path d="M12 4v6" />
+  <path d="M2 18h20" /></g></svg></div><div class="pt" style="left:37.57186254918298%;top:82.27219748465023%" title="Kompose Boutique Resort at Theme Parks"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#0c8459" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z" /></g></svg></div><div class="pt" style="left:26.53357536391578%;top:48.736869348673956%" title="The Fountains International Dr"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#75736d" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" />
+  <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
+  <path d="M12 4v6" />
+  <path d="M2 18h20" /></g></svg></div><div class="pt" style="left:57.8428683284385%;top:30.070716021077185%" title="SERALAGO HOTEL & SUITES W Irlo Bronson Memorial Hwy"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#75736d" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" />
+  <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
+  <path d="M12 4v6" />
+  <path d="M2 18h20" /></g></svg></div><div class="pt" style="left:38.49431441473583%;top:55.572662791336924%" title="Paradise Palms Resort 6 Bedroom Home with Game Room 6 Home"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#75736d" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" />
+  <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
+  <path d="M12 4v6" />
+  <path d="M2 18h20" /></g></svg></div><div class="pt" style="left:89.87261744620838%;top:66.00146719942214%" title="Orlando Resort Rentals at Universal Boulevard"><svg class="mk" width="32" height="32" viewBox="0 0 32 32"><circle cx="16.0" cy="16.0" r="15.0" fill="#75736d" stroke="#ffffff" stroke-width="2"/><g transform="translate(8.0,8.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" />
+  <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
+  <path d="M12 4v6" />
+  <path d="M2 18h20" /></g></svg></div></div>
+
+<h2>Hover tooltip and result card</h2>
+<p class="note">Same content, two containers. The tooltip is desktop-only; on touch the identical
+information arrives in the sheet card. Example is <strong>JW Marriott Marco Island Beach Resort</strong>, the Florida hotel with the
+most themes (7).</p>
+<div class="row">
+  <div class="tip"><div class="nm">JW Marriott Marco Island Beach Resort</div><div class="co">Collier County</div><span class="bg"><i style="background:#cc4e1b"></i>Family</span><span class="bg"><i style="background:#0c8459"></i>Outdoor</span><span class="bg"><i style="background:#0c8459"></i>Nature</span><span class="bg"><i style="background:#2a78d6"></i>City</span><span class="bg"><i style="background:#2a78d6"></i>Business</span><span class="bg"><i style="background:#4a3aa7"></i>Romantic</span><span class="bg"><i style="background:#4a3aa7"></i>Food & wine</span></div>
+  <div class="card"><svg class="mk" width="40" height="40" viewBox="0 0 40 40"><circle cx="20.0" cy="20.0" r="19.0" fill="#cc4e1b" stroke="#ffffff" stroke-width="2"/><g transform="translate(12.0,12.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0" />
+  <circle cx="10" cy="8" r="5" />
+  <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" /></g></svg><div><div class="nm">JW Marriott Marco Island Beach Resort</div>
+    <div class="co">Collier County</div><span class="bg"><i style="background:#cc4e1b"></i>Family</span><span class="bg"><i style="background:#0c8459"></i>Outdoor</span><span class="bg"><i style="background:#0c8459"></i>Nature</span><span class="bg"><i style="background:#2a78d6"></i>City</span><span class="bg"><i style="background:#2a78d6"></i>Business</span><span class="bg"><i style="background:#4a3aa7"></i>Romantic</span><span class="bg"><i style="background:#4a3aa7"></i>Food & wine</span></div></div>
+  <div class="card"><svg class="mk" width="40" height="40" viewBox="0 0 40 40"><circle cx="20.0" cy="20.0" r="19.0" fill="#75736d" stroke="#ffffff" stroke-width="2"/><g transform="translate(12.0,12.0) scale(0.6666666666666666)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" />
+  <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
+  <path d="M12 4v6" />
+  <path d="M2 18h20" /></g></svg><div><div class="nm">Seaside at Anna Maria Island Inn</div>
+    <div class="co">Manatee County</div>
+    <span class="bg" style="color:#898781"><i style="background:#75736d"></i>No theme classified</span></div></div>
+</div>
+
+<h2>Theme coverage in the Florida set</h2>
+<p class="note">"Any position" is how many hotels carry that theme at all; "primary" is how many show it
+on the map. The gap between the two columns is information the map cannot show — which is what the
+tooltip and card are for.</p>
+<div class="panel"><table><thead><tr><th>Theme</th><th class="n">Any position</th><th class="n">Primary</th></tr></thead><tbody>
+<tr><td>Family-Friendly Stays</td><td class="n">84</td><td class="n">23</td></tr><tr><td>Outdoor Adventure Stays</td><td class="n">81</td><td class="n">23</td></tr><tr><td>City Escapes</td><td class="n">71</td><td class="n">13</td></tr><tr><td>Natural Wonder Stays</td><td class="n">55</td><td class="n">13</td></tr><tr><td>Food & Wine Stays</td><td class="n">46</td><td class="n">9</td></tr><tr><td>Romantic Getaways</td><td class="n">42</td><td class="n">11</td></tr><tr><td>Business Travel Stays</td><td class="n">22</td><td class="n">6</td></tr><tr><td>National Park Stays</td><td class="n">12</td><td class="n">2</td></tr><tr><td>Pet-Friendly Stays</td><td class="n">5</td><td class="n">1</td></tr><tr><td>All-Inclusive Resorts</td><td class="n">2</td><td class="n">1</td></tr><tr><td>Onsen & Hot Spring Stays</td><td class="n">1</td><td class="n">0</td></tr><tr><td>Roadside Motels</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><td class="muted">Unclassified</td><td class="n">—</td><td class="n">53</td></tr>
+</tbody></table></div>
+</div>
+<script>
+const map = document.getElementById('map');
+document.querySelectorAll('[data-f]').forEach(b => b.onclick = () => {
+  document.querySelectorAll('[data-f]').forEach(o => o.setAttribute('aria-pressed', o === b));
+  map.className = 'map ' + b.dataset.f;
+});
+</script></body></html>

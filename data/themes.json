@@ -1,0 +1,138 @@
+{
+  "families": {
+    "urban": {
+      "label": "Urban & Business",
+      "color": "#2a78d6"
+    },
+    "family": {
+      "label": "Family & Entertainment",
+      "color": "#cc4e1b"
+    },
+    "outdoors": {
+      "label": "Outdoors & Nature",
+      "color": "#0c8459"
+    },
+    "indulgence": {
+      "label": "Romance & Indulgence",
+      "color": "#4a3aa7"
+    },
+    "none": {
+      "label": "Unclassified",
+      "color": "#75736d"
+    }
+  },
+  "themes": [
+    {
+      "slug": "city-escapes",
+      "label": "City Escapes",
+      "short": "City",
+      "family": "urban",
+      "icon": "building-2",
+      "color": "#2a78d6"
+    },
+    {
+      "slug": "business-travel",
+      "label": "Business Travel Stays",
+      "short": "Business",
+      "family": "urban",
+      "icon": "briefcase",
+      "color": "#2a78d6"
+    },
+    {
+      "slug": "roadside-motels",
+      "label": "Roadside Motels",
+      "short": "Roadside",
+      "family": "urban",
+      "icon": "car-front",
+      "color": "#2a78d6"
+    },
+    {
+      "slug": "family-friendly",
+      "label": "Family-Friendly Stays",
+      "short": "Family",
+      "family": "family",
+      "icon": "users-round",
+      "color": "#cc4e1b"
+    },
+    {
+      "slug": "pet-friendly",
+      "label": "Pet-Friendly Stays",
+      "short": "Pet-friendly",
+      "family": "family",
+      "icon": "paw-print",
+      "color": "#cc4e1b"
+    },
+    {
+      "slug": "casino-entertainment",
+      "label": "Casino & Entertainment Resorts",
+      "short": "Casino",
+      "family": "family",
+      "icon": "dice-5",
+      "color": "#cc4e1b"
+    },
+    {
+      "slug": "all-inclusive",
+      "label": "All-Inclusive Resorts",
+      "short": "All-inclusive",
+      "family": "family",
+      "icon": "concierge-bell",
+      "color": "#cc4e1b"
+    },
+    {
+      "slug": "outdoor-adventure",
+      "label": "Outdoor Adventure Stays",
+      "short": "Outdoor",
+      "family": "outdoors",
+      "icon": "mountain",
+      "color": "#0c8459"
+    },
+    {
+      "slug": "natural-wonder",
+      "label": "Natural Wonder Stays",
+      "short": "Nature",
+      "family": "outdoors",
+      "icon": "sunrise",
+      "color": "#0c8459"
+    },
+    {
+      "slug": "national-park",
+      "label": "National Park Stays",
+      "short": "National park",
+      "family": "outdoors",
+      "icon": "trees",
+      "color": "#0c8459"
+    },
+    {
+      "slug": "romantic-getaways",
+      "label": "Romantic Getaways",
+      "short": "Romantic",
+      "family": "indulgence",
+      "icon": "heart",
+      "color": "#4a3aa7"
+    },
+    {
+      "slug": "food-wine",
+      "label": "Food & Wine Stays",
+      "short": "Food & wine",
+      "family": "indulgence",
+      "icon": "wine",
+      "color": "#4a3aa7"
+    },
+    {
+      "slug": "onsen-hot-spring",
+      "label": "Onsen & Hot Spring Stays",
+      "short": "Hot springs",
+      "family": "indulgence",
+      "icon": "droplets",
+      "color": "#4a3aa7"
+    }
+  ],
+  "generic": {
+    "slug": "unclassified",
+    "label": "Unclassified stay",
+    "short": "Hotel",
+    "family": "none",
+    "icon": "bed-double",
+    "color": "#75736d"
+  }
+}
