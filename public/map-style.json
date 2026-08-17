@@ -3,7 +3,7 @@
   "sources": {
     "protomaps": {
       "type": "vector",
-      "attribution": "<a href=\"https://github.com/protomaps/basemaps\">Protomaps</a> © <a href=\"https://osm.org/copyright\">OpenStreetMap</a>",
+      "attribution": "<a href=\"https://github.com/protomaps/basemaps\">Protomaps</a> \u00a9 <a href=\"https://osm.org/copyright\">OpenStreetMap</a>",
       "url": "pmtiles://__NEXT_PUBLIC_TILES_URL__"
     }
   },
@@ -12,7 +12,7 @@
       "id": "background",
       "type": "background",
       "paint": {
-        "background-color": "#cccccc"
+        "background-color": "#e5e5e5"
       }
     },
     {

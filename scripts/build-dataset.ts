@@ -79,7 +79,6 @@ function main() {
     }
 
     if (row.geocode_confidence === 'failed') {
-      console.warn(`excluding "${row.name}" — geocode_confidence is failed`);
       excludedFailed += 1;
       continue;
     }

@@ -4,20 +4,23 @@ import { useEffect, useRef, useState, type RefObject } from 'react';
 import * as maplibregl from 'maplibre-gl';
 import * as pmtiles from 'pmtiles';
 
-// A small, CORS-enabled public PMTiles archive used only to prove the pmtiles protocol,
-// style loading and WebGL rendering pipeline work end-to-end before real Florida tiles are
-// hosted (see scripts/build-tiles.md). It covers Florence, Italy, not Florida — because
-// maxBounds below is Florida-only, the visible result is an empty (but gesture- and
-// URL-loop-correct) map until NEXT_PUBLIC_TILES_URL points at a real Florida extract.
-const DEMO_TILES_URL = 'https://pmtiles.io/protomaps(vector)ODbL_firenze.pmtiles';
-
 let protocolRegistered = false;
 
 function registerPmtilesProtocol() {
   if (protocolRegistered) return;
-  const protocol = new pmtiles.Protocol();
-  maplibregl.addProtocol('pmtiles', protocol.tile);
+  maplibregl.addProtocol('pmtiles', new pmtiles.Protocol().tile);
   protocolRegistered = true;
+}
+
+/**
+ * No real Florida tiles are hosted yet (see scripts/build-tiles.md). Rather than point at a
+ * demo archive with no Florida coverage — which, behind maxBounds, renders nothing anyway and
+ * drags in a whole PMTiles-in-a-worker integration to prove that — fall back to the style's
+ * plain background layer. Markers still render on top of it; only the basemap is missing.
+ */
+function stripBasemapLayers(style: maplibregl.StyleSpecification) {
+  style.layers = style.layers.filter((layer) => !('source' in layer) || layer.source !== 'protomaps');
+  delete style.sources.protomaps;
 }
 
 export function supportsWebGL2(): boolean {
@@ -54,16 +57,18 @@ export function useMapInstance(
 
     async function init() {
       const res = await fetch('/map-style.json');
-      const style = await res.json();
+      const style: maplibregl.StyleSpecification = await res.json();
 
       const tilesUrl = process.env.NEXT_PUBLIC_TILES_URL;
       if (tilesUrl) {
-        style.sources.protomaps.url = `pmtiles://${tilesUrl}`;
+        (style.sources.protomaps as maplibregl.VectorSourceSpecification).url =
+          `pmtiles://${tilesUrl}`;
       } else {
         console.warn(
-          '[map] NEXT_PUBLIC_TILES_URL is not set — falling back to the Protomaps demo tiles.',
+          '[map] NEXT_PUBLIC_TILES_URL is not set — rendering without the basemap. ' +
+            'See scripts/build-tiles.md.',
         );
-        style.sources.protomaps.url = `pmtiles://${DEMO_TILES_URL}`;
+        stripBasemapLayers(style);
       }
 
       if (cancelled || mapRef.current || !containerRef.current) return;

@@ -7,14 +7,20 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   reporter: process.env.CI ? 'github' : 'html',
   use: {
-    baseURL: 'http://localhost:3000',
+    // A dedicated, unusual port — reuseExistingServer must never silently attach to some
+    // other project's dev server already running on a common port like 3000.
+    baseURL: 'http://localhost:3491',
     trace: 'on-first-retry',
   },
   webServer: {
-    command: 'pnpm build && pnpm start',
-    url: 'http://localhost:3000',
+    command: 'pnpm build && pnpm start --port 3491',
+    url: 'http://localhost:3491',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
+    // NEXT_PUBLIC_* vars are inlined at build time, so this must be set for the build step
+    // too — exposes window.__map (see components/map/marker-layer.tsx) for e2e assertions
+    // without shipping it in a real production build.
+    env: { NEXT_PUBLIC_E2E: 'true' },
   },
   // iPhone 15 is the default project — mobile is the target, not an afterthought.
   projects: [

@@ -43,7 +43,7 @@ decision should be revisited.
 | UI | React + TypeScript (strict) | 19.x / 5.x |
 | Styling | Tailwind CSS | 4.x |
 | Primitives | Radix UI + Vaul (bottom sheet) | latest |
-| Map | MapLibre GL JS (direct, no wrapper) | 6.x |
+| Map | MapLibre GL JS (direct, no wrapper) | 5.x |
 | Basemap | Protomaps PMTiles on Cloudflare R2 | — |
 | Data | Build-time generated JSON from a committed CSV | — |
 | Validation | Zod | 4.x |
@@ -56,9 +56,10 @@ Also pre-approved: `pmtiles`, `@protomaps/basemaps`, `lucide-react`,
 `xlsx` (ingest only).
 
 Do not add anything beyond those lists without asking. In particular: no `react-map-gl` (it
-reaches into MapLibre internals that v6 removed), no state-management library, no data
--fetching library (there is one static fetch in the whole app), no component kit beyond
-Radix, no carousel library, no virtualization library.
+reaches into MapLibre internals in ways that break across major versions — see the pinned
+5.x note above), no state-management library, no data-fetching library (there is one static
+fetch in the whole app), no component kit beyond Radix, no carousel library, no
+virtualization library.
 
 ## Directory layout
 
@@ -110,9 +111,13 @@ docs/  specs/                # this plan
 - Clustering is MapLibre's built-in GeoJSON clustering.
 - The map instance is created once and never re-created. React state changes call imperative
   MapLibre methods; they must never remount the container div.
-- MapLibre v6 is **ESM-only and requires WebGL2**. Import as
-  `import * as maplibregl from 'maplibre-gl'`, load in a `'use client'` component via
-  `next/dynamic` with `ssr: false`, and handle the no-WebGL2 case with a list-only fallback.
+- Pinned to MapLibre GL JS **5.x, not 6.x**. 6.3.0's ESM worker spawns and closes immediately
+  under Next.js (both webpack and Turbopack) — every source silently never loads, no error
+  surfaces. Confirmed with the same app code against 5.24.0, which works. Do not upgrade to 6
+  without first confirming upstream has fixed the worker lifecycle issue.
+- Import as `import * as maplibregl from 'maplibre-gl'`, load in a `'use client'` component
+  via `next/dynamic` with `ssr: false`, and handle the no-WebGL2 case with a list-only
+  fallback.
 
 ### Data flow
 

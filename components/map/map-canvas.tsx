@@ -1,13 +1,15 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState, type RefObject } from 'react';
 import * as maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
+import { useDataset } from '@/lib/data/use-dataset';
 import { useMapInstance } from './use-map-instance';
 import { useMapViewport } from './use-map-viewport';
 import { MapControls } from './map-controls';
 import { MapAttribution } from './map-attribution';
 import { NoWebGLFallback } from './no-webgl-fallback';
+import { MarkerLayer } from './marker-layer';
 
 const RESIZE_DEBOUNCE_MS = 100;
 const LOCATE_TOAST_MS = 3000;
@@ -67,7 +69,17 @@ export function MapCanvas() {
 
   return (
     <div className="absolute inset-0">
-      <div ref={containerRef} className="absolute inset-0" />
+      {/* maplibre-gl.css sets .maplibregl-map { position: relative }, which — loaded after
+          Tailwind's utilities — wins the cascade over an `absolute` class at equal
+          specificity and collapses this div to zero height. Size it with h-full/w-full
+          instead, which is immune to that position flip; the wrapper above owns the
+          absolute inset-0 positioning. */}
+      <div ref={containerRef} className="h-full w-full" />
+      {/* Fallback is null: the basemap above already renders on its own. Only the markers
+          (which need the fetched dataset) suspend — there is exactly one loading state. */}
+      <Suspense fallback={null}>
+        <MarkerDataBoundary mapRef={mapRef} ready={ready} />
+      </Suspense>
       <MapControls
         onLocate={handleLocate}
         onZoomIn={() => mapRef.current?.zoomIn()}
@@ -81,4 +93,15 @@ export function MapCanvas() {
       <MapAttribution />
     </div>
   );
+}
+
+function MarkerDataBoundary({
+  mapRef,
+  ready,
+}: {
+  mapRef: RefObject<maplibregl.Map | null>;
+  ready: boolean;
+}) {
+  const dataset = useDataset();
+  return <MarkerLayer mapRef={mapRef} ready={ready} pois={dataset.pois} />;
 }
